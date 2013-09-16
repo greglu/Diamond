@@ -57,7 +57,12 @@ class TestMetricsCollector(CollectorTestCase):
             'jvm.thread-states.blocked': 0.0,
             'jvm.thread-states.waiting': 0.2222222222222222,
             'jvm.thread-states.new': 0.0,
-            'jvm.thread-states.terminated': 0.0
+            'jvm.thread-states.terminated': 0.0,
+            'org.eclipse.jetty.servlet.ServletContextHandler.1xx-responses.count': 0,
+            'org.eclipse.jetty.servlet.ServletContextHandler.2xx-responses.count': 380,
+            'org.eclipse.jetty.servlet.ServletContextHandler.3xx-responses.count': 0,
+            'org.eclipse.jetty.servlet.ServletContextHandler.4xx-responses.count': 13,
+            'org.eclipse.jetty.servlet.ServletContextHandler.5xx-responses.count': 0
         }
 
         self.setDocExample(collector=self.collector.__class__.__name__,
