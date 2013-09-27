@@ -10,6 +10,7 @@ Collect [Yammer Metrics](http://metrics.codahale.com/) JSON output for the local
 """
 
 import urllib2
+import urlparse
 
 try:
     import json
@@ -77,14 +78,15 @@ class MetricsCollector(diamond.collector.Collector):
 
         flattened = self.flatten(result)
         metrics = self.select_number_values(flattened)
+        header = urlparse(url).netloc.replace(":", "_")
 
         for key in metrics:
-            self.publish(key, metrics[key])
+            self.publish(header + "." + key, metrics[key])
 
     def collect(self):
         if json is None:
             self.log.error('Unable to import json')
             return {}
 
-        for url in self.config['url'].split(','):
+        for url in self.config['url']:
             self.collect_instance(url)
