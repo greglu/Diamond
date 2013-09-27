@@ -10,7 +10,7 @@ Collect [Yammer Metrics](http://metrics.codahale.com/) JSON output for the local
 """
 
 import urllib2
-from urlparse import urlparse
+import urlparse
 
 try:
     import json
@@ -78,7 +78,7 @@ class MetricsCollector(diamond.collector.Collector):
 
         flattened = self.flatten(result)
         metrics = self.select_number_values(flattened)
-        header = urlparse(url).netloc.replace(":", "_")
+        header = urlparse.urlparse(url).netloc.replace(":", "_").replace(".", "_")
 
         for key in metrics:
             self.publish(header + "." + key, metrics[key])
