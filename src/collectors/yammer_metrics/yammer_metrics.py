@@ -61,11 +61,7 @@ class MetricsCollector(diamond.collector.Collector):
                 published[key] = value
         return published
 
-    def collect(self):
-        if json is None:
-            self.log.error('Unable to import json')
-            return {}
-        url = self.config['url']
+    def collect_instance(self, url):
         try:
             response = urllib2.urlopen(url)
         except urllib2.HTTPError, err:
@@ -84,3 +80,11 @@ class MetricsCollector(diamond.collector.Collector):
 
         for key in metrics:
             self.publish(key, metrics[key])
+
+    def collect(self):
+        if json is None:
+            self.log.error('Unable to import json')
+            return {}
+
+        for url in self.config['url'].split(','):
+            self.collect_instance(url)
