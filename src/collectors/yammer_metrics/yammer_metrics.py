@@ -10,7 +10,7 @@ Collect [Yammer Metrics](http://metrics.codahale.com/) JSON output for the local
 """
 
 import urllib2
-import urlparse
+from urlparse import urlparse
 
 try:
     import json
